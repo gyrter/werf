@@ -75,7 +75,11 @@ func (b *DockerWithFuseBuildah) Push(ctx context.Context, ref string, opts PushO
 }
 
 func (b *DockerWithFuseBuildah) Mount(ctx context.Context, container string, opts MountOpts) (string, error) {
-	panic("not implemented")
+	args := []string{"mount", container}
+
+	stdout, _, err := b.runBuildah(ctx, []string{}, args, opts.LogWriter)
+
+	return strings.TrimSpace(stdout), err
 }
 
 func (b *DockerWithFuseBuildah) Umount(ctx context.Context, container string, opts UmountOpts) error {

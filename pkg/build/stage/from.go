@@ -3,7 +3,6 @@ package stage
 import (
 	"context"
 	"fmt"
-	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -102,9 +101,10 @@ func (s *FromStage) PrepareImage(ctx context.Context, c Conveyor, cr container_b
 				for _, mountpoint := range mountpoints {
 					logboek.Context(ctx).Info().LogF("Removing mountpoint %q in the container dir: %q\n", mountpoint, filepath.Join(containerRoot, mountpoint))
 
-					if err := os.RemoveAll(filepath.Join(containerRoot, mountpoint)); err != nil {
-						return fmt.Errorf("unable to remove %q: %w", mountpoint, err)
-					}
+					fmt.Printf("REMOVING %q\n", filepath.Join(containerRoot, mountpoint))
+					//if err := os.RemoveAll(filepath.Join(containerRoot, mountpoint)); err != nil {
+					//	return fmt.Errorf("unable to remove %q: %w", mountpoint, err)
+					//}
 				}
 
 				return nil
